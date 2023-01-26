@@ -1,0 +1,25 @@
+body{
+    font-family:'Courier New', Courier, monospace;
+    margin: 0;
+}
+
+.navbar {
+    background-color: antiquewhite;
+    
+    
+
+
+}
+.navbar-title{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+}
+.navbar-data{
+    
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    
+}
