@@ -12,3 +12,16 @@ body {
 }
 
 /* create additional rules below:  */
+
+section#home{
+    font-family: "Audiowide", sans-serif;
+}
+section#bio{
+    font-family: "Trirong", serif;
+}
+section#contact{
+    font-family: "Sofia", sans-serif;
+}
+section#portfolio{
+    font-family:"Inconsolata", serif;
+}
