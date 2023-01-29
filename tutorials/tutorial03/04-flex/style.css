@@ -12,3 +12,33 @@ body {
 }
 
 /* create additional rules below:  */
+
+section{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+   
+}
+section h2, section p{  
+    
+    margin: 10px;
+
+}
+section#home{
+    background-color: aliceblue;
+}
+section#bio{
+    background-color: rgb(68, 20, 20);
+    color: white;
+}
+section#portfolio{
+    background-color: blanchedalmond;
+
+}
+section#contact{
+    background-color: tan;
+    color: white;
+}
