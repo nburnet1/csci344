@@ -47,7 +47,7 @@ body * {
 }
 
 aside, body > header {
-    border: solid 1px #000;
+    /* border: solid 1px #000; */
     font-family: monospace;
 }
 main {
@@ -55,7 +55,7 @@ main {
 }
 .news-feed{
 
-    border: solid 1px #000;
+    /* border: solid 1px #000; */
     width: 60vw;
     height:100vh;
     
@@ -69,7 +69,7 @@ aside{
     left: 60vw;
     width: 40vw;
     height: 92vh;
-    padding-left: 15px;
+    padding-left: 50px;
     
 
 }
@@ -99,18 +99,31 @@ aside{
 
 #stories, .card{
     background-color: white;
-    margin-left: 1vw;
-    margin-right: 1vw;
+    margin-left: 5vw;
+   
 }
 
 #story{
+    padding-top: 1vh;
     padding-left: 10px;
 }
 
 #story:first-child{
     padding-left: 0;
+    padding-top: 1vh;
 }
 
+/* Card CSS */
+
+#post{
+    list-style-type: none;
+
+}
+#post-img{
+    width:99%;
+    
+
+}
 
 /* Media queries */
 @media (max-width: 800px) {
