@@ -1,25 +1,121 @@
 body{
     font-family:'Courier New', Courier, monospace;
     margin: 0;
-}
-
-.navbar {
-    background-color: antiquewhite;
-    display: flex;
-    
-
-
-}
-.navbar-title{
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-
-}
-.navbar-data{
-    
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    background-color: lightgray;
     
 }
+
+nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 100vw;
+    height: 8vh;
+    border: solid 2px grey;
+    background-color: rgb(245, 245, 245);
+}
+
+nav h1{
+    padding-left: 50px;
+}
+
+
+nav ul{
+    display: flex;
+    list-style-type: none;
+    padding-right: 50px;
+
+}
+
+
+
+li{
+    margin: 10px;
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+.logo {
+    font-size: 1em;
+    font-weight: normal;
+}
+
+aside, body > header {
+    border: solid 1px #000;
+    font-family: monospace;
+}
+main {
+    margin-top: 8vh;
+}
+.news-feed{
+
+    border: solid 1px #000;
+    width: 60vw;
+    height:100vh;
+    
+    
+}
+
+/* Aside Section */
+aside{
+    position: fixed;
+    top: 95;
+    left: 60vw;
+    width: 40vw;
+    height: 92vh;
+    padding-left: 15px;
+    
+
+}
+
+/* User section (Top of aside section) */
+#user-section, #suggestion-list, #story-list{
+    display: flex;
+    list-style-type: none;
+    
+}
+
+#logged-user, #follow, #user{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#user-pfp{
+    max-height:150px;
+    max-width: 150px;
+    border-radius: 50%;
+}
+
+/* Suggestion List, (Below User Section) */
+
+
+/* news-feed */
+
+#stories, .card{
+    background-color: white;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+#story{
+    padding-left: 10px;
+}
+
+#story:first-child{
+    padding-left: 0;
+}
+
+
+/* Media queries */
+@media (max-width: 800px) {
+    
+}
+
+
+
