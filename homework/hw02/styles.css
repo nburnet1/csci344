@@ -1,11 +1,12 @@
 body{
-    font-family:'Courier New', Courier, monospace;
+    font-family: 'Comfortaa', cursive;
     margin: 0;
-    background-color: lightgray;
+    background-color: #f2f2f2;
     
 }
 
 nav {
+    
     position: fixed;
     left: 0;
     top: 0;
@@ -15,8 +16,8 @@ nav {
     padding: 1vh 1vw;
     width: 100vw;
     height: 8vh;
-    border: solid 2px grey;
-    background-color: rgb(245, 245, 245);
+    /* border: solid 2px grey; */
+    background-color: white;
 }
 
 nav h1{
@@ -54,7 +55,7 @@ main {
     margin-top: 8vh;
 }
 .news-feed{
-
+    padding-top:1vh;
     /* border: solid 1px #000; */
     width: 60vw;
     height:100vh;
@@ -64,12 +65,14 @@ main {
 
 /* Aside Section */
 aside{
+    font-family: 'Comfortaa', cursive;
     position: fixed;
     top: 95;
     left: 60vw;
     width: 40vw;
     height: 92vh;
     padding-left: 5vw;
+    overflow-y: auto;
     
 
 }
@@ -86,11 +89,15 @@ aside{
     justify-content: center;
     align-items: center;
 }
-.user-pfp{
-    max-height:150px;
-    max-width: 150px;
+.user-pfp, .story-pfp{
     border-radius: 50%;
+    border-color: grey;
     
+    
+}
+
+.story-pfp{
+    border: solid 2px #d7d7d7;
     
 }
 
@@ -114,6 +121,7 @@ aside{
 .story{
     padding-top: 1vh;
     padding-left: 1vw;
+    display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
@@ -126,6 +134,7 @@ aside{
     padding-left: 0;
     padding-top: 1vh;
 }
+
 
 /* Card CSS */
 
@@ -171,8 +180,14 @@ a{
 .comments{
     margin:0;
     padding:0;
+    border-bottom: solid 1px #d7d7d7;
 }
 
+.description{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 
 .post-date{
@@ -190,15 +205,19 @@ a{
     font-size: 20pt;
 }
 
+
 .post-footer{
     font-size: 20pt;
     margin-left: 5vw;
     display: flex;
-    /* justify-content: space-between; */
     align-items: center;
     padding-bottom: 2vh;
     padding-right: 2vw;
+    margin-top: 2vh;
+    
 }
+
+
 
 .add-comment{
     display: flex;
@@ -212,8 +231,18 @@ a{
     margin-left: 1.5vw;
     border:none;
     font-size: 17pt
+}
 
-    
+a i, a:hover, a li, a b{
+    color: black;
+}
+
+i{
+    padding-right: .5vw;
+}
+
+a{
+    color: darkblue;
 }
 
 /* Media queries */
@@ -252,7 +281,7 @@ a{
     font-size: 14pt;
     }
     .icons-list{
-        font-size: 1pt;
+        font-size: 14pt;
     }
     .post-head{
         font-size: 14pt; 
@@ -262,25 +291,42 @@ a{
     }
 
     .user{
-        font-size: 11pt;
+        font-size: 10pt;
         text-align: center;
         text-decoration: none;
         display:block;
+        overflow: hidden;
     }
     
-    .user-pfp{
+    .user-pfp, .story-pfp{
         margin: 0 auto;
         display: block;
-        width: 50px;
-        height: 50px;
+        overflow:hidden;
+        width: 40px;
+        height: 40px;
         
         
     }
+    .story-list{
+        padding: 0;
+
+    }
+
     
 
 
 
 
+}
+
+@media (max-width: 420px){
+    nav ul{
+        padding-right: 0vw;
+    
+    }
+    .user{
+        font-size: 8pt;
+    }
 }
 
 
