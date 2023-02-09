@@ -8,6 +8,18 @@ const people = [
     { name: "Malik", pic: "http://knight.gamebanana.com/img/ico/sprays/patrick_star_preview_2.png", score: 40 }
 ];
 
+
+const playerToHTML = player =>{
+    return `            
+        <div class="card">
+            <img src="${player.pic}">
+            <p>${player.name} high score is: 300</p>
+        </div>`;
+}
+
+for (const player of people){
+    document.querySelector('.cards').insertAdjacentHTML('beforeend',playerToHTML(player))
+}
 /**
  * Your job:
  * Loop through the people array and create a card for all of the
@@ -16,3 +28,4 @@ const people = [
  *   * Use the build-in map method to apply the template to each person
  *   * Add the rendered templates to the DOM
  */
+
