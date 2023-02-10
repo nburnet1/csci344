@@ -30,41 +30,68 @@ const search = ev => {
 }
 
 // Part 1.1a
-const filterClassFull = course => {
-    
-    return true;
+const filterClassFull = (course, openOnly) => {
+    return !openOnly || course.EnrollmentCurrent > 0;
 }
 
+
 // Part 1.1b
-const filterTermMatched = course => {
+const filterTermMatched = (course, searchTerm) => {
     // modify this
-    return true;
+    let filtered = false;
+    searchTerm = searchTerm.toLowerCase();
+    const courseTitle = course.Title.toLowerCase();
+    const courseCode = course.Code.toLowerCase();
+    const courseInstruct = course.Instructors[0].Name.toLowerCase();
+
+
+    if(courseTitle.includes(searchTerm.toLowerCase())){
+        filtered = true;
+    }
+    else if(courseCode.includes(searchTerm.toLowerCase())){
+        filtered = true;
+    }
+    else if(courseInstruct.includes(searchTerm.toLowerCase())){
+        filtered = true;
+    }
+
+
+ 
+    return filtered;
 }
 
 // Part 1.2
 const dataToHTML = course => {
     // modify this
-    return `        
-    
-            <section class="course">
-            <h2>${data.title}</h2>
+    return `
+        <section class="course">
+        <h2>${course.Code}: ${course.Title}</h2>
             <p>
-                <i class="fa-solid fa-circle-check"></i> 
-                Open  &bull; 10174 &bull; Seats Available: ${data.EnrollmentMax - data.EnrollmentCurrent}
+                <i class="fa-solid ${course.EnrollmentCurrent > 0 ? 'fa-circle-check' : 'fa-circle-xmark'}"></i> 
+                ${course.EnrollmentCurrent > 0 ? 'Open' : 'Closed'} &bull; 
+                ${course.CRN} &bull; 
+                Seats Available: ${course.EnrollmentCurrent < course.EnrollmentMax ? course.EnrollmentCurrent : 'None'}
             </p>
             <p>
-                ${data.days} &bull; ${data.location} &bull; ${data.hours} credit hour(s)
+                ${course.Days} &bull; 
+                ${course.Location.FullLocation} &bull; 
+                ${course.Hours} credit hour(s)
             </p>
-            <p><strong>${data.Instructors}</strong></p>
-            </section>`;
+            <p><strong>${course.Instructors[0].Name}</strong></p>
+        </section>
+    `;
 }
 
 // Part 2
 const showData = (searchTerm, openOnly) => {
     console.log(searchTerm, openOnly);
     console.log(data); // imported from course-data.js
-
-    
     // Your code here:
-    
+    const dataArray = Object.values(data);
+    const filteredData = dataArray
+    .filter(course => filterClassFull(course, openOnly))
+    .filter(course => filterTermMatched(course, searchTerm));    
+    const coursesHTML = filteredData.map(dataToHTML);
+    const html = coursesHTML.join('');
+    document.querySelector('.courses').innerHTML = html;
 }
