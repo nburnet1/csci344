@@ -14,7 +14,42 @@ const showStories = async (token) => {
 }
 
 const showPosts = async (token) => {
-    console.log('code to show posts');
+    const endpoint = `${rootURL}/api/posts`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+
+    console.log('Posts:', data);
+}
+
+const showProfile = async (token) => {
+    const endpoint = `${rootURL}/api/profile`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+
+    console.log('Profile:', data);
+}
+
+const showSuggestions = async (token) => {
+    const endpoint = `${rootURL}/api/suggestions`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+
+    console.log('Suggestions:', data);
 }
 
 
@@ -25,6 +60,24 @@ const initPage = async () => {
     // then use the access token provided to access data on the user's behalf
     showStories(token);
     showPosts(token);
+    showProfile(token);
+    showSuggestions(token);
+}
+
+const storiesToHTML = () =>{
+
+}
+
+const postToHTML = () => {
+
+}
+
+const profileToHTML = () => {
+
+}
+
+const suggestionsToHTML = () => {
+
 }
 
 initPage();
