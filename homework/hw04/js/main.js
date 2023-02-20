@@ -64,20 +64,34 @@ const initPage = async () => {
     showSuggestions(token);
 }
 
-const storiesToHTML = () =>{
+const storiesToHTML = (data) =>{
 
 }
 
-const postToHTML = () => {
+const postToHTML = (data) => {
 
 }
 
-const profileToHTML = () => {
+const navToHTML = (data) => {
+    return `
+    <nav>
+    <h1>Photo App</h1>
+    
+    <ul>
+        <li>${data.username}</li>
+        <li><a href="">Sign Out</a></li>
+    </ul>
+    </nav>
+    `
 
 }
 
-const suggestionsToHTML = () => {
+const suggestionsToHTML = (data) => {
 
 }
 
 initPage();
+
+
+// const htmlOutput = jsonData.map(artistToHTML).join('');
+// document.querySelector(".results").innerHTML = htmlOutput;
