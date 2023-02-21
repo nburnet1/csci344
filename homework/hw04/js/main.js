@@ -1,4 +1,5 @@
 import {getAccessToken} from './utilities.js';
+import {topPost, iconPost} from './post.js';
 const rootURL = 'https://photo-app-secured.herokuapp.com';
 
 const showStories = async (token) => {
@@ -19,7 +20,7 @@ const showStories = async (token) => {
 
 }
 
-const showPosts = async (token) => {
+const showPosts = async (token , profileData) => {
     const endpoint = `${rootURL}/api/posts`;
     const response = await fetch(endpoint, {
         headers: {
@@ -31,7 +32,17 @@ const showPosts = async (token) => {
 
     console.log('Posts:', data);
 
-    const htmlOutput = data.map(postToHTML).join('');
+    let htmlOutput = `` ;
+
+    for( let i = 0; i < data.length; i++){
+        htmlOutput += topPost(data[i]);
+        htmlOutput += iconPost(data[i], profileData);
+        // htmlOutput += commentPost(data[i]);
+        // htmlOutput += bottomPost(data[i]);
+    }
+    
+    
+
     document.querySelector(".news-feed").innerHTML = htmlOutput;
 
 
@@ -48,6 +59,7 @@ const showProfile = async (token) => {
             'Authorization': 'Bearer ' + token
         }
     })
+    
     const data = await response.json();
 
 
@@ -56,6 +68,8 @@ const showProfile = async (token) => {
 
     document.querySelector("nav").innerHTML = navToHTML(data);
     document.querySelector("header").innerHTML = userSectionToHTML(data);
+
+    return test;
 }
 
 const showSuggestions = async (token) => {
@@ -88,10 +102,11 @@ const initPage = async () => {
     const token = await getAccessToken(rootURL, 'webdev', 'password');
 
     // then use the access token provided to access data on the user's behalf
-    showProfile(token);
+    const profileData = showProfile(token);
     showSuggestions(token);
     showStories(token);
-    showPosts(token);
+    console.log(profileData)
+    showPosts(token, profileData);
     
     
 }
