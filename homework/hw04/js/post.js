@@ -14,24 +14,40 @@ const topPost = data => {
                         <img class="post-img" src="${data.image_url}" />
                     </li>
     </section>
-    `
+    ` + iconPostLikes();
 
 }
 const iconPost = (data,profileData) => {
     let tempHTML = ``;
-    for(let i = 0; i < data.likes; i ++){
+    // tempHTML +=  iconPostLikes();
+    for(let i = 0; i < data.likes.length; i ++){
         if(data.likes[i].user_id == profileData.id){
-            console.log("Heyo");
+            // console.log(tempHTML.querySelector('main').styles.color);
+            document.querySelector('main').styles.color = 'red';
+            break;
         }
-        console.log(data.likes[i].user_id,profileData.id);
+        // console.log(data.likes[i].user_id,profileData.id);
     }
-    // console.log(profileData.first_name);
+    // console.log(profileData.id);
     // console.log(data.likes.length);
 
-    return ``;
+    return tempHTML;
+}
 
-    
-
+const iconPostLikes = () => {
+    return `
+    <li class="icons-list">
+        <div class="interact-list">
+        <a href=""><i class="fa-regular fa-heart"></i></a>
+         <a href=""><i class="fa-regular fa-comment"></i></a>
+        <a href=""><i class="fa-regular fa-paper-plane"></i></a>
+         </div>
+        <div>
+            <a href=""><i class="fa-regular fa-bookmark"></i></a>
+        </div>
+                        
+    </li>
+    `;
 }
 const commentPost = data => {
 

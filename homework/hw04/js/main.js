@@ -69,7 +69,7 @@ const showProfile = async (token) => {
     document.querySelector("nav").innerHTML = navToHTML(data);
     document.querySelector("header").innerHTML = userSectionToHTML(data);
 
-    return test;
+    return data;
 }
 
 const showSuggestions = async (token) => {
@@ -102,10 +102,9 @@ const initPage = async () => {
     const token = await getAccessToken(rootURL, 'webdev', 'password');
 
     // then use the access token provided to access data on the user's behalf
-    const profileData = showProfile(token);
+    const profileData = await showProfile(token);
     showSuggestions(token);
     showStories(token);
-    console.log(profileData)
     showPosts(token, profileData);
     
     
