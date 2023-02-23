@@ -275,13 +275,25 @@ a{
 
 }
 
+.modal-post{
+    display:flex;
+    flex-direction: row;
+    width: 80%;
+    margin-right: 20%;
+
+}
+
 .close-modal {
     cursor: pointer;
     color: white;
 
 }
 .close-modal :hover{
-    
+    color: gray;
+}
+
+.modal-text{
+    background-color:#f2f2f2;
 }
 
 

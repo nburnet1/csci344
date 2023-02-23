@@ -183,7 +183,16 @@ const postToHTML = (data) => {
                 </ul>
                 <div id="modal${data.id}"class="modal-bg hidden">
                     <a id="${data.id}"class="close-modal">${data.id}</a>
-                    <img class="modal-img" src="${data.image_url}" />
+                    <div class="modal-post">
+                    <img class="modal-img" src="${data.image_url}"/>
+                    <div class="modal-text">
+                    <li class="post-des">
+                    <div class="post-user"><a href=""><b>${data.user.username}</b></a></div>
+                    <div class="description">${data.caption}</div>
+                    </li>
+                    <div>
+                    
+                    </div>
                 </div>
         </section>
     `
