@@ -276,7 +276,7 @@ a{
 }
 
 .modal-post{
-    display:flex;
+    display:fixed;
     flex-direction: row;
     width: 80%;
     margin-right: 20%;
