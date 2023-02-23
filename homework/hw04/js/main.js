@@ -1,9 +1,8 @@
 import {getAccessToken} from './utilities.js';
-import {topPost, iconPost} from './post.js';
 const rootURL = 'https://photo-app-secured.herokuapp.com';
 
 const showStories = async (token) => {
-    const endpoint = `${rootURL}/api/stories`;
+    const endpoint = `${rootURL}/api/stories/?limit=5`;
     const response = await fetch(endpoint, {
         headers: {
             'Content-Type': 'application/json',
@@ -20,7 +19,7 @@ const showStories = async (token) => {
 
 }
 
-const showPosts = async (token , profileData) => {
+const showPosts = async (token) => {
     const endpoint = `${rootURL}/api/posts`;
     const response = await fetch(endpoint, {
         headers: {
@@ -32,18 +31,28 @@ const showPosts = async (token , profileData) => {
 
     console.log('Posts:', data);
 
-    let htmlOutput = `` ;
 
-    for( let i = 0; i < data.length; i++){
-        htmlOutput += topPost(data[i]);
-        htmlOutput += iconPost(data[i], profileData);
-        // htmlOutput += commentPost(data[i]);
-        // htmlOutput += bottomPost(data[i]);
+    const htmlOutput = data.map(postToHTML).join('');
+    document.querySelector(".post-div").innerHTML = htmlOutput;
+
+    let commentButton = document.querySelectorAll(".show-all-comments");
+
+    for(let i = 0; i < commentButton.length; i++){
+        commentButton[i].onclick = () => {
+            showModal(commentButton[i].id);
+        }
+    }
+
+
+    let modal = document.querySelectorAll(".close-modal");
+
+
+    for(let i = 0; i < modal.length; i ++){
+        modal[i].onclick = () =>{
+            closeModal(modal[i].id)
+        }
     }
     
-    
-
-    document.querySelector(".news-feed").innerHTML = htmlOutput;
 
 
     
@@ -105,7 +114,7 @@ const initPage = async () => {
     const profileData = await showProfile(token);
     showSuggestions(token);
     showStories(token);
-    showPosts(token, profileData);
+    showPosts(token);
     
     
 }
@@ -136,12 +145,12 @@ const postToHTML = (data) => {
                     </li>
                     <li class="icons-list">
                         <div class="interact-list">
-                            <a href=""><i class="fa-regular fa-heart"></i></a>
+                            <a href="">${checkHeart(data)}</a> 
                             <a href=""><i class="fa-regular fa-comment"></i></a>
                             <a href=""><i class="fa-regular fa-paper-plane"></i></a>
                         </div>
                         <div>
-                            <a href=""><i class="fa-regular fa-bookmark"></i></a>
+                            <a href="">${checkBookmark(data)}</a>
                         </div>
                         
                     </li>
@@ -157,17 +166,9 @@ const postToHTML = (data) => {
                         
                     </li>
                     <li class="comments">
-                        <div class="comment-block">
-                            <div class="post-user"><a href=""><b>brodude235</b></a></div>
-                            <div class="description">Lorem ipsum dolor sit amet, 
-                            </div>
-                        </div>
+                        
+                        ${checkComments(data)}
 
-                        <div class="comment-block">
-                            <div class="post-user"><a href=""><b>bruh</b></a></div>
-                            <div class="description">This is pretty epic thanks for sharing.
-                            </div>
-                        </div>
                         <div class="post-date">
                             ${data.display_time}
                         </div>
@@ -178,27 +179,70 @@ const postToHTML = (data) => {
                             <input placeholder="Add a comment..."/>
                         </div>
                         <a href="" >Post</a>
-
-
                     </li>
-
                 </ul>
-                
+                <div id="modal${data.id}"class="modal-bg hidden">
+                    <a id="${data.id}"class="close-modal">${data.id}</a>
+                    <img class="modal-img" src="${data.image_url}" />
+                </div>
         </section>
     `
 
 }
 
-const commentToHTML = data => {
-    return `
-
-    <div class="comment-block">
-        <div class="post-user"><a href=""><b>brodude235</b></a></div>
-        <div class="description">Lorem ipsum dolor sit amet, </div>
-    </div>
-    
-    `
+const showModal = (id) =>{
+    console.log(id);
+    document.getElementById("modal"+id).classList.remove('hidden');
 }
+const closeModal = (id) =>{
+    console.log(id);
+    document.getElementById("modal"+id).classList.add('hidden');
+
+}
+
+const checkHeart = data =>{
+
+    if(typeof data.current_user_like_id == 'undefined'){
+        return `<a href=""><i class="fa-regular fa-heart"></i></a>`;
+    }
+    else{
+        return `<a href=""><i style="color:red;" class="fa-solid fa-heart"></i></a>`;
+    }
+
+}
+const checkBookmark = data =>{
+    if(typeof data.current_user_bookmark_id == 'undefined'){
+        return `<a href=""><i class="fa-regular fa-bookmark"></i></a>`;
+    }
+    else{
+        return `<a href=""><i class="fa-solid fa-bookmark"></i></a>`;
+    }
+}
+const checkComments = data =>{
+    let tempHTML = ``;
+    if(data.comments.length == 1){
+        tempHTML += `
+        <div class="comment-block">
+        <div class="post-user"><a href=""><b>${data.comments[data.comments.length-1].username}</b></a></div>
+        <div class="description">${data.comments[data.comments.length-1].text}</div>
+        </div>
+        `;
+    }
+    else if (data.comments.length > 1){
+        tempHTML += `
+        <div class="comment-block">
+        <div class="post-user"><a href=""><b>${data.comments[data.comments.length-1].user.username}</b></a></div>
+        <div class="description">${data.comments[data.comments.length-1].text} </div>
+        </div>
+        <a id="${data.id}"  class ="show-all-comments">Show all ${data.comments.length} comments </a>
+        `;
+
+
+    }
+    
+    return tempHTML;
+}
+
 
 const navToHTML = (data) => {
     return `
@@ -252,6 +296,8 @@ const suggestionsToHTML = (data) => {
     </ul>
     `
 }
+
+
 
 initPage();
 

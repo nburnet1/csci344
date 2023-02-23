@@ -116,7 +116,11 @@ aside{
 
 .stories{
     justify-content: left;
+    overflow: hidden;
+    overflow-x: auto;
+    
 }
+
 
 
 .story{
@@ -162,7 +166,7 @@ aside{
     margin-right: 5vw;
     
 }
-.post-des,.comment-block, .post-date, .likes{
+.post-des,.comment-block, .post-date, .likes, .show-all-comments{
     width: 85%;
     margin-left: 5vw;
     display: flex;
@@ -175,8 +179,12 @@ aside{
 a{
     text-decoration: none;
 }
-.comment-block, .post-date{
+.comment-block, .post-date, .show-all-comments{
     padding-bottom: 1vh;
+}
+.show-all-comments{
+    cursor: pointer;
+    margin-left: 7vw;
 }
 .comments{
     margin:0;
@@ -246,6 +254,37 @@ a{
     color: darkblue;
 }
 
+.hidden{
+    display: none !important;
+}
+
+.modal-bg{
+    background: rgba(50, 50, 50, 0.8);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.modal-img{
+
+}
+
+.close-modal {
+    cursor: pointer;
+    color: white;
+
+}
+.close-modal :hover{
+    
+}
+
+
 /* Media queries */
 @media (max-width: 1400px) {
     aside{
@@ -310,13 +349,7 @@ a{
     }
     .story-list{
         padding: 0;
-
     }
-
-    
-
-
-
 
 }
 
