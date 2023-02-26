@@ -53,15 +53,113 @@ const showPosts = async () => {
     document.querySelector('#posts').innerHTML = htmlString;
 }
 
+const getBookmarkButton = (data) =>{
+
+    if(typeof data.current_user_bookmark_id == "undefined"){
+        return `
+            <button onclick="postBookMark(${data.id})" class="fa-regular fa-bookmark"></button>
+        `;
+    }
+    else{
+        return `
+        <button onclick="postUnBookMark(${data.current_user_bookmark_id})" class="fa-solid fa-bookmark"></button>
+        `
+    }
+
+}
+
+const createBookmark = async (id,bookID) => {
+    // define the endpoint:
+    const endpoint = `https://photo-app-secured.herokuapp.com/api/bookmarks/`;
+    const postData = {
+        "post_id": id // replace with the actual post ID
+    };
+
+    // Create the bookmark:
+    const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify(postData)
+    })
+    const data = await response.json();
+    console.log(data);
+    reDraw(id,bookID);
+}
+
+
+const postBookMark = (id) =>{
+    createBookmark(id,current_user_bookmark_id);
+    console.log("adding bookmark");
+}
+
+const postUnBookMark = (id) =>{
+    deleteBookmark(id,current_user_bookmark_id);
+    console.log("removing bookmark");
+}
+
+const deleteBookmark = async (id,bookID) => {
+    // define the endpoint:
+    const endpoint = `https://photo-app-secured.herokuapp.com/api/bookmarks/${id}`;
+
+    // Create the bookmark:
+    const response = await fetch(endpoint, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    
+    console.log(data);
+    reDraw(id,bookID);
+}
+
+
+
+const getLikes = data =>{
+
+    if(typeof data.current_user_like_id == "undefined"){
+        return `
+            <button class="fa-regular fa-heart"></button>
+        `
+    }
+    else{
+        return `
+        <button style="color:red" class="fa-solid fa-heart"></button>
+        `
+    }
+}
+
 const postToHTML = post => {
     // console.log(post.comments.length);
     return `
         <section id="post_${post.id}" class="post">
             <img src="${post.image_url}" alt="Fake image" />
+            ${getLikes(post)}
+            ${getBookmarkButton(post)}
             <p>${post.caption}</p>
             ${ showCommentAndButtonIfItMakesSense(post) }
         </section>
     `
+}
+
+const reDraw = async postId =>{
+    const endpoint = `${rootURL}/api/posts/${postId}`;
+    const response = await fetch(endpoint, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }
+    })
+    const data = await response.json();
+    console.log(data);
+    const htmlString = postToHTML(data);
+    targetElementAndReplace(`#post_${postId}`,htmlString);
+    
 }
 
 showModal = () => {
