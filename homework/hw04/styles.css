@@ -81,6 +81,7 @@ aside{
 /* User section (Top of aside section) */
 .user-section, .suggestion-list, .story-list{
     display: flex;
+    align-items: center;
     list-style-type: none;
     
 }
@@ -93,8 +94,6 @@ aside{
 .user-pfp, .story-pfp{
     border-radius: 50%;
     border-color: grey;
-    
-    
 }
 
 .story-pfp{
@@ -273,17 +272,38 @@ a{
 
 .modal-img{
 
+    display: flex;
+    height: 80vh;
+    width: 60vw;
+
 }
 
 .modal-post{
-    display:fixed;
+    display:flex;
     flex-direction: row;
-    width: 80%;
-    margin-right: 20%;
+    width: 90vw;
+    margin: 10%;
+    justify-content: center;
+    align-content: center;
 
 }
 
+.modal-des{
+    /* display: flex;
+    flex-direction: row; */
+    /* justify-content: center;
+    align-content: center; */
+    position: fixed;
+    width:29.5vw;
+    padding: 0;
+    border-bottom: solid 2px #d7d7d7;
+}
+
+
+
 .close-modal {
+    display:flex;
+    justify-content: flex-end;
     cursor: pointer;
     color: white;
 
@@ -293,7 +313,11 @@ a{
 }
 
 .modal-text{
+    height:80vh;
+    width:30vw;
     background-color:#f2f2f2;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 
@@ -301,7 +325,6 @@ a{
 @media (max-width: 1400px) {
     aside{
         display: none;
-
     }
     .news-feed{
         width: 100vw;
@@ -322,6 +345,17 @@ a{
     }
     nav h1{
         font-size: 16pt;
+    }
+
+    .modal-img{
+        display: none;
+    }
+
+    .modal-text{
+        width: 90vw;
+    }
+    .modal-des{
+        width:90vw;
     }
 }
 

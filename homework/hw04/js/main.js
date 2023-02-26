@@ -108,7 +108,7 @@ const showSuggestions = async (token) => {
 
 const initPage = async () => {
     // first log in (we will build on this after Spring Break):
-    const token = await getAccessToken(rootURL, 'webdev', 'password');
+    const token = await getAccessToken(rootURL, 'noah', 'noah_password');
 
     // then use the access token provided to access data on the user's behalf
     const profileData = await showProfile(token);
@@ -165,13 +165,14 @@ const postToHTML = (data) => {
                         </div>
                         
                     </li>
+                    <div class="post-date">
+                    ${data.display_time}
+                    </div>
                     <li class="comments">
                         
                         ${checkComments(data)}
 
-                        <div class="post-date">
-                            ${data.display_time}
-                        </div>
+
                     </li>
                     <li class="post-footer">
                         <div class="add-comment">
@@ -182,20 +183,39 @@ const postToHTML = (data) => {
                     </li>
                 </ul>
                 <div id="modal${data.id}"class="modal-bg hidden">
-                    <a id="${data.id}"class="close-modal">${data.id}</a>
+                    
                     <div class="modal-post">
+                    <a id="${data.id}"class="close-modal">${data.id}</a>
                     <img class="modal-img" src="${data.image_url}"/>
+
                     <div class="modal-text">
-                    <li class="post-des">
-                    <div class="post-user"><a href=""><b>${data.user.username}</b></a></div>
-                    <div class="description">${data.caption}</div>
+                    <div class="modal-des">
+                    <ul class="user-section">
+                    <li class="logged-img">
+                        <img class="user-pfp" src="${data.user.thumb_url}"/>
                     </li>
+                    <li class="logged-user">
+                        <b><h2>${data.user.username}</h2></b>
+                    </li>
+                    <li>
+                        
+                    </li>
+                    
+                    
+                </ul>
+                    </div>
                     <div>
+                    ${showModalComments(data)}
                     
                     </div>
                 </div>
         </section>
     `
+
+}
+
+const showModalComments = data =>{
+    return ``;
 
 }
 
@@ -235,15 +255,22 @@ const checkComments = data =>{
         <div class="post-user"><a href=""><b>${data.comments[data.comments.length-1].username}</b></a></div>
         <div class="description">${data.comments[data.comments.length-1].text}</div>
         </div>
+        <div class="post-date">
+                    ${data.comments[data.comments.length-1].display_time}
+        </div>
         `;
     }
     else if (data.comments.length > 1){
         tempHTML += `
+        <a id="${data.id}"  class ="show-all-comments">Show all ${data.comments.length} comments </a>
         <div class="comment-block">
         <div class="post-user"><a href=""><b>${data.comments[data.comments.length-1].user.username}</b></a></div>
         <div class="description">${data.comments[data.comments.length-1].text} </div>
         </div>
-        <a id="${data.id}"  class ="show-all-comments">Show all ${data.comments.length} comments </a>
+        <div class="post-date">
+        ${data.comments[data.comments.length-1].display_time}
+        </div>
+        
         `;
 
 
