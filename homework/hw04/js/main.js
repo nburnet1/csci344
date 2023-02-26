@@ -49,7 +49,7 @@ const showPosts = async (token) => {
 
     for(let i = 0; i < modal.length; i ++){
         modal[i].onclick = () =>{
-            closeModal(modal[i].id)
+            closeModal(modal[i].id);
         }
     }
     
@@ -145,12 +145,12 @@ const postToHTML = (data) => {
                     </li>
                     <li class="icons-list">
                         <div class="interact-list">
-                            <a href="">${checkHeart(data)}</a> 
+                            ${checkHeart(data)}
                             <a href=""><i class="fa-regular fa-comment"></i></a>
                             <a href=""><i class="fa-regular fa-paper-plane"></i></a>
                         </div>
                         <div>
-                            <a href="">${checkBookmark(data)}</a>
+                            ${checkBookmark(data)}
                         </div>
                         
                     </li>
@@ -161,7 +161,7 @@ const postToHTML = (data) => {
                     <li class="post-des">
                         <div class="post-user"><a href=""><b>${data.user.username}</b></a></div>
                         <div class="description">
-                        ${data.caption}   
+                        ${data.caption}
                         </div>
                         
                     </li>
@@ -182,32 +182,34 @@ const postToHTML = (data) => {
                         <a href="" >Post</a>
                     </li>
                 </ul>
-                <div id="modal${data.id}"class="modal-bg hidden">
+                <div id="modal${data.id}" class="modal-bg hidden" aria-hidden="true" >
                     
-                    <div class="modal-post">
-                    <a id="${data.id}"class="close-modal">${data.id}</a>
-                    <img class="modal-img" src="${data.image_url}"/>
-
-                    <div class="modal-text">
-                    <div class="modal-des">
-                    <ul class="user-section">
-                    <li class="logged-img">
-                        <img class="user-pfp" src="${data.user.thumb_url}"/>
-                    </li>
-                    <li class="logged-user">
-                        <b><h2>${data.user.username}</h2></b>
-                    </li>
-                    <li>
+                    
+                    
                         
-                    </li>
                     
+                        <div class="modal-post">
+                        <button id="${data.id}" class="close-modal fa-solid fa-x"></button>
+                            <img class="modal-img" src="${data.image_url}"/>
+
+                            <div class="modal-text">
+                                <div class="modal-des">
+                                    <ul class="user-section">
+                                        <li class="logged-img">
+                                            <img class="user-pfp" src="${data.user.thumb_url}"/>
+                                        </li>
+                                        <li class="logged-user">
+                                            <b><h2>${data.user.username}</h2></b>
+                                        </li>
+                                    
+                                    </ul>
+                                </div>
+                                <div class="modal-comments">
+                                    ${showModalComments(data)}
+                                </div>
+                            </div>
+                        </div>
                     
-                </ul>
-                    </div>
-                    <div>
-                    ${showModalComments(data)}
-                    
-                    </div>
                 </div>
         </section>
     `
@@ -215,17 +217,44 @@ const postToHTML = (data) => {
 }
 
 const showModalComments = data =>{
-    return ``;
+    let tempHTML = ``;
+
+    for(let i = 0; i < data.comments.length; i++){
+        tempHTML += `
+            
+        <div class="modal-comment-block">
+        <img class="modal-user-pfp" src="${data.comments[i].user.thumb_url}"/>
+        <div class="modal-post-user"><a href=""><b>${data.comments[i].user.username}</b></a></div>
+        <div class="modal-comment-text">${data.comments[i].text}</div>
+        </div>
+        <div class="post-date">
+                    ${data.comments[i].display_time}
+        </div>
+
+
+        `
+
+    }
+    return tempHTML;
 
 }
 
 const showModal = (id) =>{
     console.log(id);
-    document.getElementById("modal"+id).classList.remove('hidden');
+    let modal = document.getElementById("modal"+id);
+    modal.classList.remove('hidden');
+    modal.setAttribute("aria-hidden", 'false');
+    modal.tabIndex = -1;
+    modal.focus();
 }
 const closeModal = (id) =>{
     console.log(id);
-    document.getElementById("modal"+id).classList.add('hidden');
+    let modal = document.getElementById("modal"+id);
+    modal.classList.add('hidden');
+    modal.setAttribute("aria-hidden", 'true');
+    modal.tabIndex = -1;
+    modal.focus();
+
 
 }
 
@@ -252,7 +281,7 @@ const checkComments = data =>{
     if(data.comments.length == 1){
         tempHTML += `
         <div class="comment-block">
-        <div class="post-user"><a href=""><b>${data.comments[data.comments.length-1].username}</b></a></div>
+        <div class="post-user"><a href=""><b>${data.comments[data.comments.length-1].user.username}</b></a></div>
         <div class="description">${data.comments[data.comments.length-1].text}</div>
         </div>
         <div class="post-date">
@@ -262,7 +291,7 @@ const checkComments = data =>{
     }
     else if (data.comments.length > 1){
         tempHTML += `
-        <a id="${data.id}"  class ="show-all-comments">Show all ${data.comments.length} comments </a>
+        <button id="${data.id}" class ="show-all-comments">Show all ${data.comments.length} comments</button>
         <div class="comment-block">
         <div class="post-user"><a href=""><b>${data.comments[data.comments.length-1].user.username}</b></a></div>
         <div class="description">${data.comments[data.comments.length-1].text} </div>
