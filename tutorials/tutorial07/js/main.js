@@ -86,17 +86,17 @@ const createBookmark = async (id,bookID) => {
     })
     const data = await response.json();
     console.log(data);
-    reDraw(id,bookID);
+    // reDraw(id,bookID);
 }
 
 
 const postBookMark = (id) =>{
-    createBookmark(id,current_user_bookmark_id);
+    createBookmark(id);
     console.log("adding bookmark");
 }
 
 const postUnBookMark = (id) =>{
-    deleteBookmark(id,current_user_bookmark_id);
+    deleteBookmark(id);
     console.log("removing bookmark");
 }
 
@@ -147,20 +147,20 @@ const postToHTML = post => {
     `
 }
 
-const reDraw = async postId =>{
-    const endpoint = `${rootURL}/api/posts/${postId}`;
-    const response = await fetch(endpoint, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-    const data = await response.json();
-    console.log(data);
-    const htmlString = postToHTML(data);
-    targetElementAndReplace(`#post_${postId}`,htmlString);
+// const reDraw = async postId =>{
+//     const endpoint = `${rootURL}/api/posts/${postId}`;
+//     const response = await fetch(endpoint, {
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': 'Bearer ' + token
+//         }
+//     })
+//     const data = await response.json();
+//     console.log(data);
+//     const htmlString = postToHTML(data);
+//     targetElementAndReplace(`#post_${postId}`,htmlString);
     
-}
+// }
 
 showModal = () => {
     alert('Show Modal');
