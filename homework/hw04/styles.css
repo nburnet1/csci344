@@ -374,19 +374,19 @@ a{
     }
 
     .add-comment input{
-        font-size: 15pt
+        font-size: 14pt
     }
     .post-footer{
-    font-size: 17pt;
+    font-size: 16pt;
     }
     .icons-list{
-        font-size: 17pt;
+        font-size: 16pt;
     }
     .post-head{
-        font-size: 17pt; 
+        font-size: 16pt; 
     }
     nav h1{
-        font-size: 16pt;
+        font-size: 15pt;
     }
 
     .modal-img{
@@ -403,19 +403,19 @@ a{
 
 @media (max-width: 800px){
     .add-comment input{
-        font-size: 12pt
+        font-size: 11pt
     }
     .post-footer{
-    font-size: 14pt;
+    font-size: 13pt;
     }
     .icons-list{
-        font-size: 14pt;
+        font-size: 13pt;
     }
     .post-head{
-        font-size: 14pt; 
+        font-size: 13pt; 
     }
     nav h1{
-        font-size: 14pt;
+        font-size: 13pt;
     }
 
     .user{
