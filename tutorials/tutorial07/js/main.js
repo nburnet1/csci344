@@ -68,7 +68,7 @@ const getBookmarkButton = (data) =>{
 
 }
 
-const createBookmark = async (id,bookID) => {
+const createBookmark = async (id) => {
     // define the endpoint:
     const endpoint = `https://photo-app-secured.herokuapp.com/api/bookmarks/`;
     const postData = {
@@ -100,7 +100,7 @@ const postUnBookMark = (id) =>{
     console.log("removing bookmark");
 }
 
-const deleteBookmark = async (id,bookID) => {
+const deleteBookmark = async (id) => {
     // define the endpoint:
     const endpoint = `https://photo-app-secured.herokuapp.com/api/bookmarks/${id}`;
 
@@ -115,7 +115,7 @@ const deleteBookmark = async (id,bookID) => {
     const data = await response.json();
     
     console.log(data);
-    reDraw(id,bookID);
+    // reDraw(id,bookID);
 }
 
 
